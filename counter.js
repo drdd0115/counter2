@@ -43,35 +43,55 @@
     plusButton.disabled = currentCount + step > maxCount;
   }
 
-  // カウント更新
-  const clickHandler = (e) => {
-    const $targetButton = e.currentTarget;
-    let currentCount = parseInt($counter.textContent);
-    const step = parseInt($stepSelect.value);
+  // カウント更新(元処理)
+  // const clickHandler = (e) => {
+  //   const $targetButton = e.currentTarget;
+  //   let currentCount = parseInt($counter.textContent);
+  //   const step = parseInt($stepSelect.value);
 
-    if($targetButton.textContent === "+" && currentCount + step <= maxCount){
-      $counter.textContent = currentCount + step;
-    }
-    else if ($targetButton.textContent === "-" && currentCount - step >= minCount) {
-      $counter.textContent = currentCount - step;
-    }
+  //   if($targetButton.textContent === "+" && currentCount + step <= maxCount){
+  //     $counter.textContent = currentCount + step;
+  //   }
+  //   else if ($targetButton.textContent === "-" && currentCount - step >= minCount) {
+  //     $counter.textContent = currentCount - step;
+  //   }
 
+  //   updateDisplay();
+  // }
+
+  // for (let index = 0; index < document.getElementsByClassName("js-button").length; index++) {
+  //   document.getElementsByClassName("js-button")[index].addEventListener("click", (e) => clickHandler(e));
+  // }
+
+
+// カウント更新（長押し対応版）
+const increase = () => {
+  const currentCount = parseInt($counter.textContent, 10);
+  const step = parseInt($stepSelect.value, 10);
+
+  if (currentCount + step <= maxCount) {
+    $counter.textContent = currentCount + step;
     updateDisplay();
   }
+};
 
-  for (let index = 0; index < document.getElementsByClassName("js-button").length; index++) {
-    document.getElementsByClassName("js-button")[index].addEventListener("click", (e) => clickHandler(e));
+const decrease = () => {
+  const currentCount = parseInt($counter.textContent, 10);
+  const step = parseInt($stepSelect.value, 10);
+
+  if (currentCount - step >= minCount) {
+    $counter.textContent = currentCount - step;
+    updateDisplay();
   }
+};
 
+plusButton.addEventListener("mousedown", () => startHold(increase));
+plusButton.addEventListener("mouseup", stopHold);
+plusButton.addEventListener("mouseleave", stopHold);
 
-
-  plusButton.addEventListener("mousedown", (e) => startHold(clickHandler(e)));
-  plusButton.addEventListener("mouseup", stopHold);
-  plusButton.addEventListener("mouseleave", stopHold);
-
-  minusButton.addEventListener("mousedown", () => startHold(clickHandler(e)));
-  minusButton.addEventListener("mouseup", stopHold);
-  minusButton.addEventListener("mouseleave", stopHold);
+minusButton.addEventListener("mousedown", () => startHold(decrease));
+minusButton.addEventListener("mouseup", stopHold);
+minusButton.addEventListener("mouseleave", stopHold);
 
   $stepSelect.addEventListener("change", updateDisplay);
   updateDisplay();
