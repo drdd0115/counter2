@@ -34,8 +34,6 @@
   // ボタンの状態更新用関数
   // カウントが上限値・下限値になったときボタンを押せなくする
   function updateDisplay() {
-
-
     const currentCount = parseInt($counter.textContent);
     const step = parseInt($stepSelect.value);
 
@@ -65,33 +63,33 @@
 
 
 // カウント更新（長押し対応版）
-const increase = () => {
-  const currentCount = parseInt($counter.textContent, 10);
-  const step = parseInt($stepSelect.value, 10);
+  const increase = () => {
+    const currentCount = parseInt($counter.textContent, 10);
+    const step = parseInt($stepSelect.value, 10);
 
-  if (currentCount + step <= maxCount) {
-    $counter.textContent = currentCount + step;
-    updateDisplay();
-  }
-};
+    if (currentCount + step <= maxCount) {
+      $counter.textContent = currentCount + step;
+      updateDisplay();
+    }
+  };
 
-const decrease = () => {
-  const currentCount = parseInt($counter.textContent, 10);
-  const step = parseInt($stepSelect.value, 10);
+  const decrease = () => {
+    const currentCount = parseInt($counter.textContent, 10);
+    const step = parseInt($stepSelect.value, 10);
 
-  if (currentCount - step >= minCount) {
-    $counter.textContent = currentCount - step;
-    updateDisplay();
-  }
-};
+    if (currentCount - step >= minCount) {
+      $counter.textContent = currentCount - step;
+      updateDisplay();
+    }
+  };
 
-plusButton.addEventListener("mousedown", () => startHold(increase));
-plusButton.addEventListener("mouseup", stopHold);
-plusButton.addEventListener("mouseleave", stopHold);
+  plusButton.addEventListener("mousedown", () => startHold(increase));
+  plusButton.addEventListener("mouseup", stopHold);
+  plusButton.addEventListener("mouseleave", stopHold);
 
-minusButton.addEventListener("mousedown", () => startHold(decrease));
-minusButton.addEventListener("mouseup", stopHold);
-minusButton.addEventListener("mouseleave", stopHold);
+  minusButton.addEventListener("mousedown", () => startHold(decrease));
+  minusButton.addEventListener("mouseup", stopHold);
+  minusButton.addEventListener("mouseleave", stopHold);
 
   $stepSelect.addEventListener("change", updateDisplay);
   updateDisplay();
